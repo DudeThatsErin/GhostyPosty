@@ -1,0 +1,8 @@
+{
+  "ghostUrl": "https://techbyerin.com",
+  "adminApiKey": "68a242bdbfd0f30bc33b74d1:a4cc2a465ba7421d9413f76e8e6738743513cee1c687f010af0979fdd8fe6a18",
+  "showNotifications": true,
+  "autoSaveGhostId": true,
+  "defaultStatus": "draft",
+  "defaultVisibility": "public"
+}
