@@ -1,0 +1,198 @@
+/* Accordion Section Styles */
+.accordion-section {
+    margin-bottom: 8px;
+}
+
+.accordion-header {
+    cursor: pointer;
+    padding: 12px 16px;
+    background: var(--background-modifier-border);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 6px;
+    margin: 16px 0 8px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.accordion-header:hover {
+    background: var(--background-modifier-hover);
+}
+
+.accordion-arrow {
+    transition: transform 0.2s ease;
+}
+
+.accordion-content {
+    border: 1px solid var(--background-modifier-border);
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    padding: 16px;
+    background: var(--background-primary);
+}
+
+/* Modal Styles */
+.ghosty-modal {
+    padding: 20px;
+    max-width: 600px;
+}
+
+.ghosty-modal-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.ghosty-modal-icon {
+    font-size: 24px;
+}
+
+.ghosty-modal-title {
+    margin: 0;
+    color: var(--text-normal);
+}
+
+.ghosty-form-section {
+    margin-bottom: 16px;
+}
+
+.ghosty-form-label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+    color: var(--text-normal);
+}
+
+.ghosty-form-input,
+.ghosty-form-textarea,
+.ghosty-form-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    background: var(--background-primary);
+    color: var(--text-normal);
+    font-family: inherit;
+    min-height: 44px;
+}
+
+.ghosty-form-textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.ghosty-form-help {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.ghosty-form-row {
+    display: flex;
+    gap: 12px;
+}
+
+.ghosty-form-row .ghosty-form-section {
+    flex: 1;
+}
+
+.ghosty-modal-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.ghosty-modal-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.ghosty-modal-button-cancel {
+    background: var(--background-modifier-border);
+    color: var(--text-normal);
+}
+
+.ghosty-modal-button-upload {
+    background: var(--interactive-accent);
+    color: var(--text-on-accent);
+}
+
+.ghosty-modal-button:hover {
+    opacity: 0.8;
+}
+
+/* Support Links */
+.support-container {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 16px 0;
+}
+
+.support-link {
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 12px;
+    transition: opacity 0.2s ease;
+}
+
+.support-link:hover {
+    opacity: 0.8;
+}
+
+.coffee-link {
+    background: #FFDD00;
+    color: #000;
+}
+
+.github-link {
+    background: #24292e;
+    color: #fff;
+}
+
+.issues-link {
+    background: #d73a49;
+    color: #fff;
+}
+
+.discord-link {
+    background: #5865F2;
+    color: #fff;
+}
+
+/* Accordion Dynamic States */
+.accordion-content.expanded {
+    max-height: 1000px;
+    padding: 16px;
+}
+
+.accordion-content.collapsed {
+    max-height: 0;
+    padding: 0 16px;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.accordion-arrow.expanded {
+    transform: rotate(0deg);
+}
+
+.accordion-arrow.collapsed {
+    transform: rotate(-90deg);
+}
+
+.accordion-header.expanded {
+    border-radius: 6px 6px 0 0;
+}
+
+.accordion-header.collapsed {
+    border-radius: 6px;
+}

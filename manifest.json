@@ -1,0 +1,12 @@
+{
+    "id": "ghostyposty",
+    "name": "GhostyPosty",
+    "version": "1.0.0",
+    "minAppVersion": "0.15.0",
+    "description": "Post to your Ghost Blog from your Vault",
+    "author": "Erin Skidds",
+    "authorUrl": "https://github.com/DudeThatsErin",
+    "fundingUrl": "https://buymeacoffee.com/erinskidds",
+    "isDesktopOnly": false
+}
+  
