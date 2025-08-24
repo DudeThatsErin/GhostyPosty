@@ -703,13 +703,14 @@ class GhostyPostyPlugin extends Plugin {
             console.log('HTML preview:', safeHtml.substring(0, 200));
             console.log('safeHtml type:', typeof safeHtml);
             
+            // Try without lexical field first to isolate the issue
             const ghostPost = {
-                title: String(options.title || 'Untitled Post'),
+                title: String(options.title || options.filename || 'Untitled Post'),
                 status: options.status || 'draft',
                 visibility: options.visibility || 'public',
                 featured: options.featured || false,
                 html: String(safeHtml || ''), // Ensure HTML is always a string
-                lexical: String(lexicalContent || ''), // Ensure lexical is always a string
+                // lexical: String(lexicalContent || ''), // Temporarily removed to test
                 feature_image: featureImage,
                 custom_excerpt: options.excerpt,
                 tags: options.tags ? options.tags.map(tag => ({ name: tag })) : []
@@ -825,11 +826,11 @@ class GhostyPostyPlugin extends Plugin {
             // Use lexical format for updates
             console.log('USING LEXICAL FORMAT FOR UPDATE...');
             
-            // Prepare the update payload with both html and lexical
+            // Prepare the update payload without lexical field to test
             const updatePayload = {
                 html: String(post.html || ''), // Ensure HTML is always a string
-                lexical: String(post.lexical || ''), // Ensure lexical is always a string
-                title: String(post.title || 'Untitled Post'),
+                // lexical: String(post.lexical || ''), // Temporarily removed to test
+                title: String(post.title || post.filename || 'Untitled Post'),
                 status: post.status || existing.status || 'draft',
                 visibility: post.visibility || existing.visibility || 'public',
                 featured: post.featured !== undefined ? post.featured : existing.featured,
@@ -1232,12 +1233,13 @@ class GhostyPostyPlugin extends Plugin {
         // Convert horizontal rules
         html = html.replace(/^---$/gm, '<hr>');
         
-        // Convert unordered lists
-        html = html.replace(/^[-*]\s+(.*)$/gm, '<ul-li>$1</ul-li>');
+        // Convert unordered lists - handle both - and * bullets
+        html = html.replace(/^[-*+]\s+(.*)$/gm, '<ul-li>$1</ul-li>');
+        console.log('After unordered list conversion:', html.substring(0, 400));
         
         // Convert ordered lists  
         html = html.replace(/^\d+\.\s+(.*)$/gm, '<ol-li>$1</ol-li>');
-        console.log('After ordered list conversion:', html.substring(0, 200));
+        console.log('After ordered list conversion:', html.substring(0, 400));
         
         // Group consecutive list items using a more robust approach
         const htmlLinesForLists = html.split('\n');
@@ -1268,6 +1270,9 @@ class GhostyPostyPlugin extends Plugin {
             }
         }
         
+        console.log('Current UL items before final processing:', currentUlItems);
+        console.log('Current OL items before final processing:', currentOlItems);
+        
         // Handle any remaining list items
         if (currentUlItems.length > 0) {
             processedLinesForLists.push(`<ul>${currentUlItems.join('')}</ul>`);
@@ -1277,7 +1282,8 @@ class GhostyPostyPlugin extends Plugin {
         }
         
         html = processedLinesForLists.join('\n');
-        console.log('After improved list grouping:', html.substring(0, 400));
+        console.log('After improved list grouping:', html.substring(0, 600));
+        console.log('Full processed lines for lists:', processedLinesForLists.slice(0, 10));
         
         // Process line by line to maintain structure, but preserve list groupings
         const htmlLines = html.split('\n');
@@ -1296,10 +1302,10 @@ class GhostyPostyPlugin extends Plugin {
             }
         }
         
-        html = structuredLines.join('\n');
+        html = structuredLines.join('\n\n');
         
-        // Final cleanup to ensure valid HTML
-        html = html.replace(/\n\n/g, '\n'); // Remove double line breaks
+        // Final cleanup to ensure valid HTML with proper spacing
+        html = html.replace(/\n\n\n+/g, '\n\n'); // Remove triple+ line breaks but keep double
         
         console.log('Final HTML before lexical conversion:', html);
         
